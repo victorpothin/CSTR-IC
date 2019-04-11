@@ -51,4 +51,5 @@ T2 = [];
 for i = 1:size(MPCA,1)
     T2(i,:) =         
 end
+%http://www2.ic.uff.br/~aconci/PCA-ACP.pdf
 %http://repositorio.ufes.br/bitstream/10/9643/1/tese_6869_Dissertacao_GercilioZuqui_Revisao_Final.pdf#%5B%7B%22num%22%3A93%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C54%2C290%2C0%5D
