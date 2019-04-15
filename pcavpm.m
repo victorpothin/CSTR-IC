@@ -7,7 +7,7 @@ variancias = 80;
 dados = dadosbruto(1:195,:);
 
 %calculo de pca
-[COEFF, SCORE, LATENT, TSQUARED, EXPLAINED] = pca(dados);
+[COEFF, SCORE, LATENT, ~, EXPLAINED] = pca(dados);
 
 %encontrar a quantidade de pca para o explained acumulado
 sum_explained = 0;
@@ -53,5 +53,18 @@ for i = 1:size(MPCA,1)
     aux = P*MPCA(i,:)';
     T2(i,:) = (MPCA(i,:)*P')*(MINVS)*aux;        
 end
+
+%UCL - limite superior da estatistica
+
+k = componentes*(size(MPCA,1)-1);
+k = k /(size(MPCA,1)-componentes);
+F = fpdf(0.95,(size(MPCA,1)-componentes),8);
+UCL = k*F;
+
+graficos = [];
+for i2 = 1:size(MPCA,1)
+    graficos(i2,:) = [T2(i2,:) , UCL];
+end
+
 %http://www2.ic.uff.br/~aconci/PCA-ACP.pdf
 %http://repositorio.ufes.br/bitstream/10/9643/1/tese_6869_Dissertacao_GercilioZuqui_Revisao_Final.pdf#%5B%7B%22num%22%3A93%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C54%2C290%2C0%5D
