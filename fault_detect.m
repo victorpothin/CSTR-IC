@@ -11,5 +11,12 @@ warning off
 [~,~,~,T2_tudo,~] = pca(X);
 fault_statistics.T2_all = T2_tudo;
 warning on
-
+graficos = [];
+for i2 = 1:size(T2_tudo,1)
+    graficos(i2,:) = [T2_tudo(i2,:) , modelo.UCL];
+end
+figure
+plot(graficos);
+legend('T2','UCL');
+hold off
 end
