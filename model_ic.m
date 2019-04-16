@@ -20,6 +20,7 @@ model.sum_variancia_pelas_PCAs = sum_explained;
 model.num_componentes_escolhidas = componentes;
 
 C = COEFF(:,1:componentes)*COEFF(:,1:componentes)';
+model.c = C;
 DadoFeitoPCA = C*dados';
 DadoFeitoPCA = DadoFeitoPCA'; 
 model.modelo_dos_dadoscomPCA = DadoFeitoPCA; 
