@@ -5,7 +5,7 @@ model.base_escolhida = base_escolhida;
 model.base_completa = cell2mat(x(4,base_escolhida));
 dadosbruto = normalize(cell2mat(x(4,base_escolhida)));
 dados = dadosbruto(1:195,:);
-[rows,~] = size(dados);
+[rows,colun] = size(dados);
 model.tamanho_da_amostra = rows;
 [COEFF,~,~,~,EXPLAINED] = pca(dados);
 model.porcentagem_todasPCAs = EXPLAINED;
@@ -34,4 +34,17 @@ an = componentes;
 nn = length(T2_semfalha);
 F = finv(0.95, componentes,(size(T2_semfalha,1)-componentes));
 model.UCL = ((an*(nn-1)*(nn+1))/(nn*(nn-an)))*F;
+
+%SPE
+ewma = 0.4;
+Q=zeros(1,length(DadoFeitoPCA));
+Q = Q';
+Qf=zeros(1,length(DadoFeitoPCA));
+Qf = Qf';
+for j = 2:length(DadoFeitoPCA)   
+r=DadoFeitoPCA(j,:)*(eye(colun)-C*C')*DadoFeitoPCA(j,:)';
+Q(j)=r*r';
+Qf(j)=ewma*Q(j)+(1-ewma)*Qf(j-1);
+end
+model.Q = Qf;
 end
