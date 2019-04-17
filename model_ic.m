@@ -47,4 +47,18 @@ Q(j)=r*r';
 Qf(j)=ewma*Q(j)+(1-ewma)*Qf(j-1);
 end
 model.Q_modelo = Qf;
+%limitQ mas tem que dar uma conferida no calculo
+alfa = 0.99;
+Cv = cov(dados);
+[~,sv,~] = svd(Cv);
+ds = diag(sv);
+teta1 = sum(ds(an+1:end));
+teta2 = sum(ds(an+1:end).^2);
+teta3 = sum(ds(an+1:end).^3);
+h0 = 1 - (2*teta1*teta3)/(3*teta2^2);
+Ca=norminv([0 alfa],0,1);
+Ca=Ca(2);
+Qlim = teta1*((h0*Ca*sqrt(2*teta2)/teta1) + 1 + (teta2*h0*(h0-1))/(teta1^2))^(1/h0);
+model.Qlim = Qlim;
+
 end
