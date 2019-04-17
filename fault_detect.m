@@ -9,11 +9,22 @@ X = X';
 fault_statistics.x= X;
 warning off
 [~,~,~,T2_tudo,~] = pca(X);
-fault_statistics.T2_all = T2_tudo;
 warning on
 graficos = [];
-for i2 = 1:size(T2_tudo,1)
-    graficos(i2,:) = [T2_tudo(i2,:) , modelo.UCL];
+
+t2f = T2_tudo(1);
+ewma = 0.4;
+ii = 0;
+for i=1:length(T2_tudo)
+t2f(i+1)=ewma*T2_tudo(i)+(1-ewma)*t2f(i);
+    if t2f(i)>=modelo.UCL && ii==0
+        ii = i;
+    end
+end
+t2f = t2f';
+fault_statistics.t2f = t2f;
+for r = 1:size(t2f,1)
+    graficos(r,:) = [t2f(r,:) , modelo.UCL];
 end
 figure
 plot(graficos);
