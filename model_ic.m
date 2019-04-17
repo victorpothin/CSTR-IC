@@ -42,7 +42,7 @@ Q = Q';
 Qf=zeros(1,length(DadoFeitoPCA));
 Qf = Qf';
 for j = 2:length(DadoFeitoPCA)   
-r=DadoFeitoPCA(j,:)*(eye(colun)-C*C')*DadoFeitoPCA(j,:)';
+r=dados(j,:)*(eye(colun)-C)*dados(j,:)';
 Q(j)=r*r';
 Qf(j)=ewma*Q(j)+(1-ewma)*Qf(j-1);
 end
