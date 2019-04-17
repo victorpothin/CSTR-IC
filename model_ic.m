@@ -46,5 +46,5 @@ r=dados(j,:)*(eye(colun)-C)*dados(j,:)';
 Q(j)=r*r';
 Qf(j)=ewma*Q(j)+(1-ewma)*Qf(j-1);
 end
-model.Q = Qf;
+model.Q_modelo = Qf;
 end
