@@ -12,10 +12,12 @@ model.porcentagem_todasPCAs = EXPLAINED;
 
 sum_explained = 0;
 componentes = 0;
+
 while sum_explained < variance
     componentes = componentes + 1;
     sum_explained = sum_explained + EXPLAINED(componentes);
 end
+
 model.sum_variancia_pelas_PCAs = sum_explained;
 model.num_componentes_escolhidas = componentes;
 
