@@ -1,4 +1,4 @@
-function [t2f,T2lim,Qf,Qlim] = t2NQ(dataTrain,dataTeste, variance)
+function [t2f,T2lim,Qf,Qlim,t2,Q] = t2NQ(dataTrain,dataTeste, variance)
 % Função para calcular a estatistica t2 com seu limiar e a 
 % estatistica Q com seu limiar
 %T2 , Q, T2lim , Qlim
@@ -41,6 +41,7 @@ Qlim = teta1*((h0*Ca*sqrt(2*teta2)/teta1) + 1 + (teta2*h0*(h0-1))/(teta1^2))^(1/
 
 
 [~,~,~,t2,~] = pca(dataTeste);
+t2 = t2';
 t2f = t2(1);
 ewma = 0.4;
 ii = 0;
@@ -68,4 +69,3 @@ Qf = Qf(2:end);
 
 
 end
-
