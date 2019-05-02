@@ -1,10 +1,11 @@
-function plotfun(t2, q, t2lim, qlim, t2f, qf)
+function plotfun(t2, q, t2lim, qlim, t2f, qf, phi, philim)
 
 
 grafico = [];
  for i = 1:size(t2,2) 
-     grafico(i,:)= [t2(i), q(i), qlim , t2lim, t2f(i), qf(i) ];
+     grafico(i,:)= [t2(i), q(i), qlim , t2lim, t2f(i), qf(i), phi(i), philim ];
  end
+
 
 figure(1)%Figure T2
     plot(grafico(:,[1,4]),'DisplayName','grafico(:,[1,4])')
@@ -19,8 +20,12 @@ figure(3)%figure T2 com filtro
     xlabel('Time (h)');
     legend('threshold T2','T2 com filtro')
 figure(4)%figure Q com filtro
-    plot(grafico(:,[3,end]),'DisplayName','grafico(:,[3,end])')
+    plot(grafico(:,[3,6]),'DisplayName','grafico(:,[3,6])')
     xlabel('Time (h)');
     legend('threshold Q','Q com filtro')
+figure(5)%figure Q com filtro
+    plot(grafico(:,7:end),'DisplayName','grafico(:,7:end)')
+    xlabel('Time (h)');
+    legend('phi','threshold do phi')
 end
 
