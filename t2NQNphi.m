@@ -72,7 +72,9 @@ for k = 1:size(Qf,2)
 phi(k) = (Qf(k) / Qlim) + (t2f(k) / T2lim);
 end
 
-%philim 
+gphi = ((a/T2lim^2)+(teta2/Qlim^2))/((a/T2lim)+(teta1/Qlim));
+hphi = ((a/T2lim)+(teta1/Qlim))^2/((a/T2lim^2)+(teta2/Qlim^2));
+philim = gphi*chi2inv(alfa,hphi)+0.20;
 
 
 end

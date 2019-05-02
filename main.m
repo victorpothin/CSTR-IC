@@ -4,7 +4,7 @@ load('data.mat');
 %for ini = 1:170
 
     
-base_selection = 10; %selecao da base
+base_selection = 25; %selecao da base
 variance = 90;
 
 
@@ -13,7 +13,7 @@ variance = 90;
 
 [T2f,T2lim,Qf,Qlim,T2,Q, phi, philim] = t2NQNphi(dataTrain, dataTeste, variance);
 
-%plotfun(T2, Q, T2lim, Qlim, T2f, Qf);
+plotfun(T2, Q, T2lim, Qlim, T2f, Qf, phi, philim);
 
 
 
