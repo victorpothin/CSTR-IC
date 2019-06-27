@@ -4,7 +4,7 @@ load('data.mat');
 %for ini = 1:170
 
     
-base_selection = 25; %selecao da base
+base_selection = 155; %selecao da base
 variance = 90;
 
 
@@ -13,7 +13,7 @@ variance = 90;
 
 [T2f,T2lim,Qf,Qlim,T2,Q, phi, philim] = t2NQNphi(dataTrain, dataTeste, variance);
 
-%plotfun(T2, Q, T2lim, Qlim, T2f, Qf, phi, philim);
+plotfun(T2, Q, T2lim, Qlim, T2f, Qf, phi, philim);
 
 [fault] = fault_cont(phi, philim, dataTeste);
 
@@ -42,12 +42,12 @@ end
 faultBin = cell2mat(base(3 , base_selection ));
 faultBin = faultBin';
 M = philim^(1/2);
-dataContri = dataTeste(fault-33:fault-3 , : );
+dataContri = dataTeste(fault-30:fault , : );
 contrigraph = [];
 
 for j = 1:14
 for i = 1:30
-contrigraph(j,i) = (dataContri(i , :)*(matrizlogica(:, j))*M)^2;
+contrigraph(j,i) = (dataContri(i , :)*(matrizlogica(j))*M)^2;
 
 end
 end
