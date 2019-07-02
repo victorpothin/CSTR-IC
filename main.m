@@ -1,93 +1,21 @@
+%Arquivo contento a base histórica
 load('data.mat');
 
-%horas = [];
-%for ini = 1:170
-
-    
-base_selection = 25; %selecao da base
+%Será selacionada a base 4 e a taxa de variança é de 90%
+base_selection = 4; 
 variance = 90;
 
-
+%chama a função TrainTest para alimentar as base treinamento e teste
 [dataTrain,dataTeste] = TrainNtest_selection(base,base_selection);
 
-
+%chama a função T2NQNphi para calculo das varaiveis e aplicação do PCA
 [T2f,T2lim,Qf,Qlim,T2,Q, phi, philim] = t2NQNphi(dataTrain, dataTeste, variance);
 
-%plotfun(T2, Q, T2lim, Qlim, T2f, Qf, phi, philim);
+%plotagem dos graficos das variaveis
+plotfun(T2, Q, T2lim, Qlim, T2f, Qf, phi, philim);
 
+%chama a função fault_cont para verficiar qual é o momento da falha
 [fault] = fault_cont(phi, philim, dataTeste);
 
-
-
-matrizlogica = [];
-
-for i= 1:14
-   for j= 1:14
-       if i == j
-       matrizlogica(i,j) = 1;     
-       end       
-   end       
-end
-
-
-
-
-
-
-
-
-
-
-
-faultBin = cell2mat(base(3 , base_selection ));
-faultBin = faultBin';
-M = philim^(1/2);
-dataContri = dataTeste(fault-33:fault-3 , : );
-contrigraph = [];
-
-for j = 1:14
-for i = 1:30
-contrigraph(j,i) = (dataContri(i , :)*(matrizlogica(:, j))*M)^2;
-
-end
-end
-
-
-% 
-% for i = 1:size(T2,2)
-%     ii = i+1;
-%     iii = i+2;
-%     i = i+3;
-%     aux1 = (T2f(i)+T2f(ii)+T2f(iii))/3;
-%     aux2 = (Qf(i)+Qf(ii)+Qf(iii))/3;
-%     if(aux1 >= T2lim  && aux2 >= Qlim)
-%         hora_com_filtro = i-3;
-%         break
-%     end
-%     if (i >= size(T2,2)-1)
-%             break
-%     end
-% end
-%clear i;
-% for i = 1:size(T2,2)
-%     ii = i+1;
-%     iii = i+2;
-%     i = i+3;
-%     aux1 = (T2(i)+T2(ii)+T2(iii))/3;
-%     aux2 = (Q(i)+Q(ii)+Q(iii))/3;
-%     if(aux1 >= T2lim  && aux2 >= Qlim)
-%         hora_sem_filtro = i-3;
-%         break
-%     end
-%     if (i >= size(T2,2)-1)
-%             break
-%     end
-% end
-
-%horas(ini,:) = [ hora_com_filtro,hora_sem_filtro ];
-% end
-
-
-
-
-
+%Gera o grafico de contribuição
+[contrigraph] = geraGraficoContribuicao(base,base_selection,dataTeste,philim,fault);
