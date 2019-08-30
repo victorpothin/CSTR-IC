@@ -1,6 +1,6 @@
 # matlabIC
 
 
-> Links for study
+> this repository is being kept for historical purposes only.
 
-[Site com muita coisa de algebra linear e deep learning](https://hadrienj.github.io/about/) :+1:
+
